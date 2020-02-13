@@ -40,19 +40,21 @@ namespace DeckShuffler
         deck[j] = temp;
       }
 
+      // Print out shuffled deck if necessary
+      // for (int i = 0; i < deck.Count; i++)
+      // {
+      //   Console.WriteLine(deck[i]);
+      // }
+
       // // After deck is shuffled, print out the top card
       // // Print out the first index of the deck list
       Console.WriteLine($"The top card that you drew was {deck[0]}");
+      // Remove that top card from the deck
       deck.RemoveAt(0);
 
       var isPlaying = true;
       while (isPlaying)
       {
-        // Print out shuffled deck if necessary
-        // for (int i = 0; i < deck.Count; i++)
-        // {
-        //   Console.WriteLine(deck[i]);
-        // }
 
         Console.WriteLine("What would you like to do next?");
         Console.WriteLine("(DRAW) the next card");
@@ -72,7 +74,7 @@ namespace DeckShuffler
         }
 
         // create solutions for the valid answers
-        if (answer == "draw" && deck.Count > 1)
+        if (answer == "draw" && deck.Count >= 1)
         {
           // Check if out of cards
           // If there are no more cards, end the game
@@ -85,7 +87,7 @@ namespace DeckShuffler
           // Check if out of cards
           // If there are no more cards, end the game
         }
-        else if (answer == "draw" && deck.Count == 1)
+        else if (answer == "draw" && deck.Count == 0)
         {
           isPlaying = false;
           Console.WriteLine("I'm sorry, there are no more cards left. Thanks for playing. See you next time!");
