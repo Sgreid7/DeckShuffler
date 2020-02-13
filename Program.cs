@@ -40,9 +40,10 @@ namespace DeckShuffler
         deck[j] = temp;
       }
 
-      // After deck is shuffled, print out the top card
-      // Print out the first index of the deck list
+      // // After deck is shuffled, print out the top card
+      // // Print out the first index of the deck list
       Console.WriteLine($"The top card that you drew was {deck[0]}");
+      deck.RemoveAt(0);
 
       var isPlaying = true;
       while (isPlaying)
@@ -58,7 +59,7 @@ namespace DeckShuffler
         Console.WriteLine("(QUIT) the program");
         var answer = Console.ReadLine().ToLower();
         // Keep track of top card - give it the 1st index as the 0 index is already dealt above
-        var topCard = deck[1];
+        var topCard = deck[0];
 
         // if answer isn't a valid answer, prompt the question again
         while (answer != "draw" && answer != "quit")
@@ -71,22 +72,23 @@ namespace DeckShuffler
         }
 
         // create solutions for the valid answers
-        if (answer == "draw")
+        if (answer == "draw" && deck.Count > 1)
         {
+          // Check if out of cards
+          // If there are no more cards, end the game
           // Alert user of next card
           Console.WriteLine($"The next card that you drew was {topCard}");
           // Remove that card from the deck
-          deck.RemoveAt(1);
+          deck.RemoveAt(0);
           // the next card in the deck will now equal the first index
-          topCard = deck[1];
-
+          topCard = deck[0];
           // Check if out of cards
           // If there are no more cards, end the game
-          if (deck.Count == 0)
-          {
-            isPlaying = false;
-            Console.WriteLine("Thank you for playing, I hope you had fun. See you next time!");
-          }
+        }
+        else if (answer == "draw" && deck.Count == 1)
+        {
+          isPlaying = false;
+          Console.WriteLine("I'm sorry, there are no more cards left. Thanks for playing. See you next time!");
         }
         else if (answer == "quit")
         {
