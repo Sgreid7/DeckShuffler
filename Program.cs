@@ -9,20 +9,29 @@ namespace DeckShuffler
     {
 
       // List out the suits and values
-      var suit = new string[] { "Clubs", "Diamonds", "Hearts", "Spades" };
-      var value = new string[] { "Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King" };
-      var card = "";
-      var deck = new List<string>();
+      var suits = new string[] { "Clubs", "Diamonds", "Hearts", "Spades" };
+      var ranks = new string[] { "ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "jack", "queen", "king" };
+      var deck = new List<Card>();
       // Iterate over each index in the suit array 
       // Iterate over each index in the value array
       // Loop through both arrays to assign each value to each suit 
       // This will create a deck of 52 cards for the user
-      for (var i = 0; i < suit.Length; i++)
+      for (var i = 0; i < suits.Length; i++)
       {
-        for (var j = 0; j < value.Length; j++)
+        for (var j = 0; j < ranks.Length; j++)
         {
           // Generate a single value and assign it to the card variable
-          card = $"{value[j]} of {suit[i]}";
+          var card = new Card();
+          card.Rank = ranks[j];
+          card.Suit = suits[i];
+          if (card.Suit == "diamonds" || card.Suit == "hearts")
+          {
+            card.Color = "red";
+          }
+          else
+          {
+            card.Color = "black";
+          }
           deck.Add(card);
         }
       }
@@ -40,6 +49,8 @@ namespace DeckShuffler
         deck[j] = temp;
       }
 
+      var playerHand = new List<Card>();
+
       // Print out shuffled deck if necessary
       // for (int i = 0; i < deck.Count; i++)
       // {
@@ -48,7 +59,9 @@ namespace DeckShuffler
 
       // // After deck is shuffled, print out the top card
       // // Print out the first index of the deck list
-      Console.WriteLine($"The top card that you drew was {deck[0]}");
+      // Console.WriteLine($"The top card that you drew was {deck[0].Rank} of {deck[0].Suit}");
+      Console.WriteLine($"The top card that you drew was {deck[0].displayCard()} and has a value of {deck[0].getValue()}");
+      playerHand.Add(deck[0]);
       // Remove that top card from the deck
       deck.RemoveAt(0);
 
@@ -76,10 +89,18 @@ namespace DeckShuffler
         // create solutions for the valid answers
         if (answer == "draw" && deck.Count >= 1)
         {
+          var total = 0;
+          Console.WriteLine($"The player has {playerHand.Count} cards");
+          for (int i = 0; i < playerHand.Count; i++)
+          {
+            total += playerHand[i].getValue();
+          }
+          Console.WriteLine($"The current total is {total}");
           // Check if out of cards
           // If there are no more cards, end the game
           // Alert user of next card
-          Console.WriteLine($"The next card that you drew was {topCard}");
+          Console.WriteLine($"The next card that you drew was {topCard.displayCard()} and has a value of {topCard.getValue()}");
+          playerHand.Add(topCard);
           // Remove that card from the deck
           deck.RemoveAt(0);
           // the next card in the deck will now equal the first index

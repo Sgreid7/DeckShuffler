@@ -1,26 +1,17 @@
-# DeckShuffler
-
-A console app that creates and shuffles a new deck for you to draw from and keeps track fo your hand.
-
-# Includes:
-
-- [C#](https://docs.microsoft.com/en-us/dotnet/csharp/)
-- Classes and Methods
-
-```JSX
 namespace DeckShuffler
 {
 
   public class Card
   {
-
+    // PROPERTIES
+    // rank
     public string Rank { get; set; }
-
+    // suit
     public string Suit { get; set; }
-
+    // color
     public string Color { get; set; }
 
-
+    // Method
     public string displayCard()
     {
       return $"{Rank} of {Suit}";
@@ -42,5 +33,5 @@ namespace DeckShuffler
       }
     }
   }
+
 }
-```
